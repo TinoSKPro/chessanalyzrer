@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chess Analyzer – Free Online Analysis Board</title>
+  <meta name="description" content="Free, clean, ad-free chess analysis board with interactive move list, basic evaluation and position insights." />
+  <meta name="author" content="Chess Analyzer" />
+
+  <!-- Chessboard.js CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard.min.css" />
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="logo">
+        <span class="logo-mark">♞</span>
+        <span class="logo-text">Chess Analyzer</span>
+      </div>
+      <nav class="main-nav">
+        <a href="#board-section">Board</a>
+        <a href="#analysis-section">Analysis</a>
+        <a href="#features-section">Features</a>
+        <a href="#about-section">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero-section" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1>Chess Analyzer – Clean, Free, Ad‑Free Analysis Board</h1>
+          <p>
+            A modern, minimal, and powerful chess analysis board focused on clarity, speed, and control. No ads, no clutter –
+            just you, the board, and the position.
+          </p>
+          <p>
+            Load a position, play through your ideas, track material, center control, and basic evaluation hints. Designed to
+            be a solid foundation you can extend with engines and advanced tools.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn primary" onclick="scrollToSection('board-section')">Open Analysis Board</button>
+            <button class="btn secondary" onclick="scrollToSection('features-section')">See Features</button>
+          </div>
+        </div>
+        <div class="hero-board-preview">
+          <div id="hero-board"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOARD + CONTROLS -->
+    <section id="board-section" class="section board-section">
+      <div class="container board-grid">
+        <div class="board-wrapper">
+          <div id="board" class="main-board"></div>
+
+          <div class="board-controls">
+            <button class="btn primary" onclick="resetPosition()">Reset</button>
+            <button class="btn secondary" onclick="undoMove()">Undo</button>
+            <button class="btn secondary" onclick="setStartPosition()">Start Position</button>
+            <button class="btn secondary" onclick="loadFenFromInput()">Load FEN</button>
+          </div>
+
+          <div class="fen-input-wrapper">
+            <label for="fen-input">FEN:</label>
+            <input id="fen-input" type="text" placeholder="Paste FEN here and click Load FEN" />
+          </div>
+        </div>
+
+        <div class="board-side-panel">
+          <div class="panel">
+            <h2>Game Status</h2>
+            <p><strong>Turn:</strong> <span id="turn-indicator">White</span></p>
+            <p><strong>Status:</strong> <span id="status-indicator">Game in progress</span></p>
+          </div>
+
+          <div class="panel">
+            <h2>Material Balance</h2>
+            <p><strong>White:</strong> <span id="material-white">0</span></p>
+            <p><strong>Black:</strong> <span id="material-black">0</span></p>
+            <p><strong>Evaluation:</strong> <span id="material-eval">Equal</span></p>
+          </div>
+
+          <div class="panel">
+            <h2>Center Control</h2>
+            <p>
+              <strong>White control:</strong> <span id="center-white">0</span>
+            </p>
+            <p>
+              <strong>Black control:</strong> <span id="center-black">0</span>
+            </p>
+            <p>
+              <strong>Center verdict:</strong> <span id="center-verdict">Balanced</span>
+            </p>
+          </div>
+
+          <div class="panel">
+            <h2>Position Insights</h2>
+            <p id="position-comment">
+              Make moves on the board or load a FEN. Basic insights about material, center, and threats will appear here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYSIS SECTION: MOVE LIST + LOG -->
+    <section id="analysis-section" class="section analysis-section">
+      <div class="container analysis-grid">
+        <div class="panel">
+          <h2>Move List</h2>
+          <ol id="move-history" class="move-history"></ol>
+        </div>
+
+        <div class="panel">
+          <h2>Analysis Log</h2>
+          <div id="analysis-log" class="analysis-log"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features-section" class="section features-section">
+      <div class="container">
+        <h2>Key Features</h2>
+        <p class="section-intro">
+          This Chess Analyzer is built as a clean, extendable base. It focuses on clarity and control, and can be upgraded
+          with engines and advanced tools later.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Interactive Board</h3>
+            <p>
+              Drag and drop pieces, explore lines, and reset or undo moves instantly. The board is powered by a robust chess
+              rules engine.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Material Evaluation</h3>
+            <p>
+              Automatic material counting and simple evaluation based on piece values. Quickly see who is ahead and by how
+              much.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Center Control</h3>
+            <p>
+              Basic center control evaluation (d4, e4, d5, e5). See which side dominates the most important squares on the
+              board.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Blunder Detection (Simple)</h3>
+            <p>
+              The analyzer compares material before and after each move and flags large material drops as potential blunders.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Ad‑Free & Free Forever</h3>
+            <p>
+              No ads, no tracking, no distractions. Just a clean analysis environment you can host and control yourself.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Extendable Architecture</h3>
+            <p>
+              The code is structured so you can later plug in engines like Stockfish, add opening books, or cloud features.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about-section" class="section about-section">
+      <div class="container">
+        <h2>About This Project</h2>
+        <p class="section-intro">
+          This project is a pure front‑end chess analysis board built with HTML, CSS, JavaScript, and two battle‑tested
+          libraries: chess.js and chessboard.js. It is designed to be simple, transparent, and easy to host anywhere.
+        </p>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>Technology Stack</h3>
+            <ul class="bullet-list">
+              <li><strong>HTML5</strong> – structure and layout</li>
+              <li><strong>CSS3</strong> – responsive, modern styling</li>
+              <li><strong>JavaScript</strong> – logic, analysis, interaction</li>
+              <li><strong>chess.js</strong> – rules, legality, game state</li>
+              <li><strong>chessboard.js</strong> – visual board rendering</li>
+            </ul>
+          </div>
+
+          <div class="about-card">
+            <h3>Possible Extensions</h3>
+            <ul class="bullet-list">
+              <li>Integrate Stockfish for engine evaluation</li>
+              <li>Add PGN import/export</li>
+              <li>Cloud save of analysis sessions</li>
+              <li>Opening explorer and statistics</li>
+              <li>Multi‑language UI</li>
+            </ul>
+          </div>
+
+          <div class="about-card">
+            <h3>Philosophy</h3>
+            <p>
+              The goal is not to compete with giant platforms, but to give you a clean, controllable, and extendable analysis
+              tool that you fully own and understand. No hidden logic, no ads, no noise.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="year"></span> Chess Analyzer. All rights reserved.</p>
+      <p class="footer-note">Free, clean, and extendable chess analysis board.</p>
+    </div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard.min.js"></script>
+
+  <!-- Custom script -->
+  <script src="script.js"></script>
+</body>
+</html>
